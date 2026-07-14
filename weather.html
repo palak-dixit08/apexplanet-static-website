@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard - Weather & Tasks</title>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        .dashboard-container {
+            background: radial-gradient(circle at top left, #2980b9, #2c3e50);
+            padding: 60px 20px;
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 40px;
+            min-height: 100vh;
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            align-items: flex-start;
+        }
+        .glass-card {
+            background: rgba(255, 255, 255, 0.08);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            padding: 40px 35px;
+            border-radius: 28px;
+            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.3), inset 0 1px 0 rgba(255, 255, 255, 0.15);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            color: white;
+            width: 100%;
+            max-width: 380px;
+            box-sizing: border-box;
+            transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+        .glass-card:hover {
+            transform: translateY(-5px);
+        }
+        .glass-card h2 {
+            font-size: 1.4rem;
+            margin-bottom: 25px;
+            font-weight: 600;
+            text-align: center;
+            margin-top: 0;
+        }
+        .input-box {
+            display: flex;
+            gap: 12px;
+            margin-bottom: 25px;
+        }
+        .input-box input {
+            flex: 1;
+            padding: 14px 18px;
+            border: 1px solid rgba(255, 255, 255, 0.15);
+            outline: none;
+            border-radius: 14px;
+            background: rgba(255, 255, 255, 0.06);
+            font-size: 0.95rem;
+            color: white;
+        }
+        .input-box input::placeholder {
+            color: rgba(255, 255, 255, 0.4);
+        }
+        .glass-card button {
+            padding: 14px 24px;
+            border: none;
+            background: white;
+            color: #2c3e50;
+            font-weight: 600;
+            border-radius: 14px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        .glass-card button:hover {
+            background: #e3edf7;
+            transform: scale(1.02);
+        }
+        .weather-info { text-align: center; }
+        .weather-info h1 { font-size: 2.2rem; margin-bottom: 0px; font-weight: 600; }
+        #weather-icon { font-size: 5.5rem; margin: 10px 0; display: inline-block; filter: drop-shadow(0 10px 15px rgba(0, 0, 0, 0.2)); animation: float 4s ease-in-out infinite; }
+        #display-temp { font-size: 4.5rem; font-weight: 700; margin: 0; letter-spacing: -2px; }
+        #display-desc { font-size: 1.05rem; opacity: 0.65; margin-top: 12px; text-transform: capitalize; }
+        
+        /* Task Manager Specific UI Rules */
+        .todo-filters { display: flex; justify-content: space-between; margin-bottom: 20px; background: rgba(255,255,255,0.05); padding: 5px; border-radius: 10px; }
+        .filter-btn { background: transparent !important; color: rgba(255,255,255,0.6) !important; padding: 8px 12px !important; font-size: 0.85rem !important; border-radius: 8px !important; box-shadow: none !important; }
+        .filter-btn.active { background: rgba(255,255,255,0.2) !important; color: white !important; }
+        .todo-list { list-style: none; padding: 0; margin: 0; max-height: 260px; overflow-y: auto; }
+        .todo-item { display: flex; align-items: center; justify-content: space-between; background: rgba(255, 255, 255, 0.05); padding: 12px 16px; border-radius: 12px; margin-bottom: 10px; border: 1px solid rgba(255, 255, 255, 0.05); }
+        .todo-item.completed span { text-decoration: line-through; opacity: 0.5; }
+        .todo-item span { flex: 1; margin-right: 10px; font-size: 0.95rem; word-break: break-all; }
+        .todo-actions { display: flex; gap: 8px; }
+        .todo-actions button { padding: 6px 10px !important; font-size: 0.8rem !important; border-radius: 8px !important; }
+        .btn-complete { background: rgba(46, 204, 113, 0.2) !important; color: #2ecc71 !important; }
+        .btn-delete { background: rgba(231, 76, 60, 0.2) !important; color: #e74c3c !important; }
+        .btn-edit { background: rgba(241, 196, 15, 0.2) !important; color: #f1c40f !important; }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0) rotate(0deg); }
+            50% { transform: translateY(-10px) rotate(3deg); }
+        }
+    </style>
+</head>
+<body>
+    <div class="dashboard-container">
+        <!-- Weather Component -->
+        <div class="glass-card">
+            <h2>Weather Forecast</h2>
+            <div class="input-box">
+                <input type="text" id="city-input" placeholder="Search city..." value="Delhi">
+                <button id="search-btn">Search</button>
+            </div>
+            <div class="weather-info">
+                <h1 id="display-city">--</h1>
+                <div id="weather-icon">☀️</div> 
+                <p id="display-temp">--°C</p>
+                <p id="display-desc">--</p>
+            </div>
+        </div>
+
+        <!-- Todo List Component (Days 19-20 Requirement) -->
+        <div class="glass-card">
+            <h2>Task Manager</h2>
+            <div class="input-box">
+                <input type="text" id="todo-input" placeholder="Add a new task...">
+                <button id="add-todo-btn">Add</button>
+            </div>
+            <div class="todo-filters">
+                <button class="filter-btn active" data-filter="all">All</button>
+                <button class="filter-btn" data-filter="active">Active</button>
+                <button class="filter-btn" data-filter="completed">Completed</button>
+            </div>
+            <ul class="todo-list" id="todo-list-container"></ul>
+        </div>
+    </div>
+    <script src="weather.js"></script>
+</body>
+</html>
