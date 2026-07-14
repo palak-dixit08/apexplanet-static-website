@@ -20,10 +20,11 @@
     <meta property="og:url" content="https://palak-dixit08.github.io/apexplanet-static-website/">
     <meta property="og:image" content="https://images.unsplash.com/photo-1498050108023-c5249f4df085?q=80&w=600">
 
-    <link rel="stylesheet" href="CSS/style.min.CSS">
-<link rel="stylesheet" href="CSS/header.CSS">
-<link rel="stylesheet" href="CSS/home.CSS">
-<link rel="stylesheet" href="CSS/footer.CSS">
+    <!-- FIXED: Lowercase file extensions for Linux compatibility on GitHub Pages -->
+    <link rel="stylesheet" href="CSS/style.css">
+    <link rel="stylesheet" href="CSS/header.css">
+    <link rel="stylesheet" href="CSS/home.css">
+    <link rel="stylesheet" href="CSS/footer.css">
 </head>
 <body>
 
@@ -132,7 +133,7 @@
 
     <button id="back-to-top" class="back-to-top-btn" aria-label="Scroll Back to Top">▲</button>
 
+    <!-- FIXED: Loading only the main minified file with 'defer' prevents double-firing errors -->
     <script src="app.min.js" defer></script>
-<script type="module" src="app.js"></script>
 </body>
 </html>
