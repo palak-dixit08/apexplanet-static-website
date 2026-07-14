@@ -14,9 +14,16 @@
 }
 
 .nav-links a {
+    color: #b8860b; /* Dark Goldenrod color */
     text-decoration: none;
-    color: var(--text-color, #333333);
-    font-weight: 500;
+    font-weight: bold;
+    transition: color 0.3s ease;
+}
+
+/* Hover state (turns slightly lighter gold when hovered) */
+.nav-links a:hover {
+    color: #daa520; /* Goldenrod */
+}
 }
 
 /* Interactive Menu Toggles */
