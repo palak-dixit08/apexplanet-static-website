@@ -73,6 +73,23 @@
             <button class="slider-btn next-btn" aria-label="Next Slide">❯</button>
         </section>
 
+        <!-- ADDED: Weather Search Widget Section (Task 3 Objective) -->
+        <section class="weather-section" style="max-width: 500px; margin: 40px auto; padding: 25px; text-align: center; border-radius: 8px; box-shadow: 0 4px 15px rgba(0,0,0,0.1); background-color: var(--card-bg, #ffffff); transition: background-color 0.3s;" aria-labelledby="weather-heading">
+            <h2 id="weather-heading" style="margin-bottom: 20px;">Local Weather Search</h2>
+            
+            <!-- 1. The Weather Form -->
+            <form id="weather-form" style="margin-bottom: 20px; display: flex; gap: 10px; justify-content: center;">
+                <!-- 2. The Input Field -->
+                <input type="text" id="city-input" placeholder="Enter city name..." required style="padding: 10px; border: 1px solid #ccc; border-radius: 4px; width: 65%; font-size: 1rem;" />
+                <button type="submit" style="padding: 10px 20px; background-color: #007bff; color: white; border: none; border-radius: 4px; cursor: pointer; font-weight: bold; font-size: 1rem;">Search</button>
+            </form>
+
+            <!-- 3. The Weather Display Container -->
+            <div id="weather-container">
+                <p style="color: #666; font-style: italic;">Search for a city to see the weather info</p>
+            </div>
+        </section>
+
         <section class="features" aria-labelledby="features-heading">
             <h2 id="features-heading">Core Highlights</h2>
             <div class="feature-card">
@@ -134,6 +151,6 @@
     <button id="back-to-top" class="back-to-top-btn" aria-label="Scroll Back to Top">▲</button>
 
     <!-- FIXED: Loading only the main minified file with 'defer' prevents double-firing errors -->
-    <script src="app.min.js" defer></script>
+   <script type="module" src="app.js" defer></script>
 </body>
 </html>

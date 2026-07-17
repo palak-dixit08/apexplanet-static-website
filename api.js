@@ -1,4 +1,5 @@
-// Dynamic async resource fetching pattern placeholder
+// api.js
+
 export async function fetchUserData() {
     try {
         const response = await fetch('https://jsonplaceholder.typicode.com/users/1');
@@ -13,21 +14,19 @@ export async function fetchUserData() {
 
 /**
  * Fetches current weather data for a given city from OpenWeatherMap.
- * Handles invalid cities (404) and network failures safely.
  */
 export async function fetchWeatherData(city) {
-    const apiKey = "YOUR_ACTUAL_API_KEY_HERE"; // 👈 Replace with your OpenWeatherMap API key
-    const url = `https://api.openweathermap.org/data/2.5/weather?q=${city}&units=metric&appid=${apiKey}`;
+    const apiKey = "69713bf835894fcda838775844810c9f"; 
+    const url = `https://api.openweathermap.org/data/2.5/weather?q=${encodeURIComponent(city)}&units=metric&appid=${apiKey}`;
 
     try {
         const response = await fetch(url);
         
-        // Check if the network response is NOT ok (e.g., 404 City Not Found or 401 Unauthorized)
         if (!response.ok) {
             if (response.status === 404) {
                 return { error: true, message: "City not found. Please try again!" };
             } else if (response.status === 401) {
-                return { error: true, message: "Invalid API key. Please check your setup." };
+                return { error: true, message: "Invalid API key or key is still activating." };
             } else {
                 return { error: true, message: "Something went wrong. Please try later." };
             }
@@ -37,8 +36,7 @@ export async function fetchWeatherData(city) {
         return { error: false, data: data };
 
     } catch (error) {
-        // Triggers on offline network failures
         console.error('Weather API network error:', error);
-        return { error: true, message: "Network error. Please check your internet connection!" };
+        return { error: true, message: "Network error. Check your internet connection!" };
     }
 }
